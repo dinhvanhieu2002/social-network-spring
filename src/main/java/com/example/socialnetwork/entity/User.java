@@ -1,5 +1,6 @@
 package com.example.socialnetwork.entity;
 
+import com.example.socialnetwork.payloads.RoleDto;
 import jakarta.persistence.*;
 import jakarta.persistence.FetchType;
 import lombok.*;
@@ -10,6 +11,8 @@ import org.seasar.doma.GeneratedValue;
 import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.Table;
+import org.seasar.doma.TableGenerator;
+import org.seasar.doma.Transient;
 import org.springframework.data.jpa.repository.Meta;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,8 +29,8 @@ import java.util.stream.Collectors;
 @Setter
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
     @Column(name = "name")
     private String name;
@@ -39,10 +42,12 @@ public class User implements UserDetails {
 
     private String about;
 
+    @Transient private List<Post> posts;
+    @Transient private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.roles.stream().map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override
@@ -68,10 +73,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
     }
 }

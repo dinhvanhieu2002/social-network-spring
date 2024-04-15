@@ -7,6 +7,23 @@ plugins {
 
 }
 
+//domaCodeGen {
+//
+//	// make an arbitrary named block
+//	register("dev") {
+//		// JDBC url
+//		url.set("jdbc:oracle:thin:@localhost:1521:orcl")
+//		// JDBC user
+//		user.set("system")
+//		// JDBC password
+//		password.set("123456")
+//		// configuration for generated entity source files
+//		entity {
+//			packageName.set("org.example.entity")
+//		}
+//	}
+//}
+
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 
@@ -34,8 +51,9 @@ dependencies {
 	implementation("org.modelmapper:modelmapper:3.1.1")
 
 	compileOnly("org.projectlombok:lombok:1.18.30")
+	annotationProcessor("org.projectlombok:lombok:1.18.30")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
-	runtimeOnly("com.oracle.database.jdbc:ojdbc11:23.2.0.0")
+	implementation("com.oracle.database.jdbc:ojdbc11:21.1.0.0")
 
 	val domaVersion = "2.50.0"
 	annotationProcessor("org.seasar.doma:doma-processor:${domaVersion}")
