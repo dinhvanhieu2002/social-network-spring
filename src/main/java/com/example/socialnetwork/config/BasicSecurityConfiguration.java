@@ -47,7 +47,14 @@ public class BasicSecurityConfiguration {
 //            registry.requestMatchers("/user/**").hasRole("USER");
             registry.requestMatchers(HttpMethod.GET).permitAll();
             registry.anyRequest().authenticated();
+
         });
+        http.exceptionHandling(exception ->
+           exception.authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
+        );
+        http.sessionManagement(session ->
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
         http.addFilterBefore(this.jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

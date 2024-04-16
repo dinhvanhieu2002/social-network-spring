@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     private String about;
 
-    @Transient private List<Post> posts;
+    @Transient private List<Post> posts = new ArrayList<>();
     @Transient private Set<Role> roles = new HashSet<>();
 
     @Override

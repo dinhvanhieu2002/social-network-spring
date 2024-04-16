@@ -32,4 +32,10 @@ public class UserRepository {
 
         return entityql.from(c).where(a -> a.eq(c.email, email)).fetchOne();
     }
+
+    public User findById(String id) {
+        var c = new User_();
+
+        return entityql.from(c).where(a -> a.eq(c.id, id)).fetchOne();
+    }
 }

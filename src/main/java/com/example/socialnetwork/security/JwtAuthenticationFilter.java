@@ -26,7 +26,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenHelper jwtTokenHelper;
 
-    //this doFilterInternal method will call when Hit API Request
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -42,12 +41,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = null;
 
         if(requestToken!= null && requestToken.startsWith("Bearer")) {
-
-            //actual token form jwt token
             token = requestToken.substring(7);//token without Bearer
 
             try {
-                // username from jwt token
                 username = this.jwtTokenHelper.getUsernameFromJWTToken(token);
             } catch (IllegalArgumentException e) {
                 System.out.println("Unable to get JWT Token! ");
@@ -58,17 +54,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 System.out.println("Invalid JWT Token!");
             }
 
-
-
-
-
         }else {
             System.out.println("JWT Token doesn't begin with Bearer! ");
         }
 
-
-        //token is get then validate the token
-        //validate jwt token
 
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
 

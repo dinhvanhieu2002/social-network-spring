@@ -19,9 +19,5 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // this will send error msg,
         //when an unauthorized user want to access authorized resources/apis.
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied !!!");
-
     }
-
-
-
 }

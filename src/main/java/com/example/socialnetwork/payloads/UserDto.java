@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.example.socialnetwork.config.ApplicationUtils.generateUUID;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -21,6 +23,7 @@ public class UserDto {
     @Size(min = 4, message = "Username atleast 4 character long!")
     private String name;
 
+    @NotEmpty
     @Email(message = "Invalid Email address, Please Input valid Email!")
     private String email;
 
@@ -32,10 +35,5 @@ public class UserDto {
     private String about;
 
     private Set<RoleDto> roles = new HashSet<>();
-
-    public static String generateUUID() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
-    }
 }
 
